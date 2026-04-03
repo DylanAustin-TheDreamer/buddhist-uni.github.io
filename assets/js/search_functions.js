@@ -169,6 +169,15 @@ function displaySearchResults(results) {
     }
 }
 
+function hasQuotes(query) {
+  const warning = '⚠️: Quotes and exact phrases are not a supported feature'
+  if (query.includes('"')) {
+    return warning;
+  } else {
+    return query.includes('"');
+  }
+}
+
 function handleSearchMessage(data, searchFn) {
   var results = [];
   var warning = "";

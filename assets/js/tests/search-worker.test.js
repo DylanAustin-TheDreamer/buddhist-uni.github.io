@@ -69,6 +69,7 @@ vm.runInContext(
   'this.resultMatched = resultMatched;\n' +
   'this.addMatchHighlights = addMatchHighlights;\n' +
   'this.getBlurbForResult = getBlurbForResult;\n' +
+  'this.hasQuotes = hasQuotes;\n' +
   'this.handleSearchMessage = handleSearchMessage;\n' +
   'this.displaySearchResults = displaySearchResults;\n',
   sandbox
@@ -76,7 +77,7 @@ vm.runInContext(
 
 const {
   categoryName, getPositions, resultMatched,
-  addMatchHighlights, getBlurbForResult, handleSearchMessage
+  addMatchHighlights, getBlurbForResult, hasQuotes, handleSearchMessage
 } = sandbox;
 
 // ── categoryName ────────────────────────────────────────────────────
@@ -296,6 +297,16 @@ describe('getBlurbForResult', () => {
   });
 });
 
+describe('hasQuotes', () => {
+  it('returns false when there are no quotes', () => {
+    const result = hasQuotes("This has no quotes");
+    assert.equal(result, false);
+  });
+  it('returns warning when there IS quotes', () => {
+    const result = hasQuotes('This has "quotes" in it');
+    assert.equal(result, '⚠️: Quotes and exact phrases are not a supported feature');
+  });
+});
 // ── handleSearchMessage ─────────────────────────────────────────────
 
 describe('handleSearchMessage', () => {
